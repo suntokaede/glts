@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>TypeScript HTML App</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script type="x-shader/x-vertex" id="vs">
+        attribute vec3 position;
+        void main(){
+            gl_Position = vec4(position, 1.0);
+        }
+    </script>
+    <script type="x-shader/x-fragment" id="fs">
+        precision mediump float;
+        void main(){
+            gl_Gragcolor = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+    </script>
+    <script src="glInit.js"></script>
+    <script src="minMatrix.js"></script>
+    <script>
+        var glInit = new glInit("canvas", document.getElementById("vs").textContent, document.getElementById("fs").textContent);
+        glInit.setCanvasFullscreen();
+        var gl = glInit.getGL();
+
+        function genTriangle() {
+            var obj = {
+                p: [
+                    0.0, 0.5, 0.0,
+                    0.5, -0.5, 0.0,
+                    -0.5, -0.5, 0.0                
+                ]
+            };
+            return obj;
+        }
+
+        var triangleData = genTriangle();
+
+        var vertexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleData.p), gl.STATIC_DRAW);
+
+        var attLocation = gl.getAttribLocation();
+    </script>
+</body>
+</html>
