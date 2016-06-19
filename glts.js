@@ -22,6 +22,8 @@ var glts = (function () {
     };
     // ランダムな頂点座標(-1 ~ 1)の配列を返します
     glts.prototype.getPosition = function (n) {
+        if (!n)
+            return;
         // x, y, zの3座標あるので3倍
         var l = n * 3;
         var arr = new Float32Array(l);
@@ -36,6 +38,8 @@ var glts = (function () {
         return arr;
     };
     glts.prototype.getPointSize = function (n) {
+        if (!n)
+            return;
         var arr = [];
         for (var i = 0; i < n; i++) {
             arr.push(Math.random() * 5 + 5);
@@ -43,6 +47,8 @@ var glts = (function () {
         return arr;
     };
     glts.prototype.getVelocity = function (n) {
+        if (!n)
+            return;
         var l = n * 2;
         var arr = new Float32Array(l);
         for (var i = 0; i < l; i++) {
@@ -58,6 +64,8 @@ var glts = (function () {
         return arr;
     };
     glts.prototype.createProgram = function (vertexShader, fragmentShader) {
+        if (!vertexShader || !fragmentShader)
+            return;
         var program = this.gl.createProgram();
         this.gl.attachShader(program, vertexShader);
         this.gl.attachShader(program, fragmentShader);
@@ -69,6 +77,8 @@ var glts = (function () {
         console.error("Failed Creating Program: " + this.gl.getProgramInfoLog(program));
     };
     glts.prototype.createShader = function (elementId) {
+        if (!elementId)
+            return;
         var shader;
         var type;
         var script = document.getElementById(elementId);
@@ -123,6 +133,8 @@ var glts = (function () {
         return ibo;
     };
     glts.prototype.getAttLocations = function (names, program) {
+        if (!names || !program)
+            return;
         var length = names.length;
         var arr = new Array(length);
         for (var i = 0; i < length; i++) {
@@ -132,6 +144,8 @@ var glts = (function () {
     };
     glts.prototype.setAttribute = function (vbos, attLocations, attStrides, ibo) {
         var _this = this;
+        if (!vbos || !attLocations || !attStrides)
+            return;
         vbos.forEach(function (vbo, i) {
             _this.gl.bindBuffer(_this.gl.ARRAY_BUFFER, vbo);
             _this.gl.enableVertexAttribArray(attLocations[i]);
@@ -142,6 +156,8 @@ var glts = (function () {
         }
     };
     glts.prototype.getUniLocations = function (names, program) {
+        if (!names || !program)
+            return;
         var arr = [];
         for (var i = 0, l = names.length; i < l; i++) {
             arr.push(this.gl.getUniformLocation(program, names[i]));
@@ -149,6 +165,8 @@ var glts = (function () {
         return arr;
     };
     glts.prototype.setUniforms = function (uniLocations, uniTypes, data) {
+        if (!uniLocations || !uniTypes || !data)
+            return;
         for (var i = 0, l = uniTypes.length; i < l; i++) {
             switch (uniTypes[i]) {
                 case '4fv':
@@ -195,6 +213,8 @@ var glts = (function () {
         return tex;
     };
     glts.prototype.repeatArray = function (content, num) {
+        if (!content || !num)
+            return;
         var arr = [];
         for (var i = 0; i < num; i++) {
             arr = arr.concat(content);
@@ -238,6 +258,8 @@ var glts = (function () {
         });
     };
     glts.prototype.loadImageAsync = function (src) {
+        if (!src)
+            return;
         return new Promise(function (resolve, reject) {
             var img = new Image();
             img.src = src;

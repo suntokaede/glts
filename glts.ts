@@ -1,5 +1,5 @@
 class glts {
-  
+
   private canvas: HTMLCanvasElement;
   private gl: WebGLRenderingContext;
 
@@ -30,6 +30,7 @@ class glts {
 
   // ランダムな頂点座標(-1 ~ 1)の配列を返します
   getPosition(n) {
+      if(!n) return;
       // x, y, zの3座標あるので3倍
       const l = n * 3;
       let arr = new Float32Array(l);
@@ -44,6 +45,7 @@ class glts {
   }
 
   getPointSize(n) {
+      if(!n) return;
       let arr = [];
       for (let i = 0; i < n; i++) {
           arr.push(Math.random() * 5 + 5);
@@ -52,6 +54,7 @@ class glts {
   }
 
   getVelocity(n) {
+      if(!n) return;
       let l = n * 2;
       let arr = new Float32Array(l);
       for (let i = 0; i < l; i++) {
@@ -68,6 +71,7 @@ class glts {
   }
 
   createProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader) {
+      if(!vertexShader || !fragmentShader) return;
       let program = this.gl.createProgram();
       this.gl.attachShader(program, vertexShader);
       this.gl.attachShader(program, fragmentShader);
@@ -80,6 +84,7 @@ class glts {
   }
 
   createShader(elementId: string) {
+      if(!elementId) return;
       let shader: WebGLShader;
       let type: boolean;
       let script = <HTMLScriptElement>document.getElementById(elementId);
@@ -135,6 +140,7 @@ class glts {
   }
 
   getAttLocations(names: string[], program: WebGLProgram) {
+      if(!names || !program) return;
       let length = names.length;
       let arr = new Array(length);
       for (let i = 0; i < length; i++) {
@@ -144,6 +150,7 @@ class glts {
   }
 
   setAttribute(vbos: WebGLBuffer[], attLocations: number[], attStrides: number[], ibo: WebGLBuffer) {
+      if(!vbos || !attLocations || !attStrides) return;
       vbos.forEach((vbo, i) => {
           this.gl.bindBuffer(this.gl.ARRAY_BUFFER, vbo);
           this.gl.enableVertexAttribArray(attLocations[i]);
@@ -156,6 +163,7 @@ class glts {
   }
 
   getUniLocations(names: string[], program: WebGLProgram) {
+      if(!names || !program) return;
       let arr = [];
       for (let i = 0, l = names.length; i < l; i++) {
           arr.push(this.gl.getUniformLocation(program, names[i]));
@@ -164,6 +172,7 @@ class glts {
   }
 
   setUniforms(uniLocations, uniTypes, data) {
+      if(!uniLocations || !uniTypes || !data) return;
       for (let i = 0, l = uniTypes.length; i < l; i++){
           switch (uniTypes[i]) {
               case '4fv':
@@ -211,6 +220,7 @@ class glts {
   }
 
   repeatArray(content: any, num: number) {
+      if(!content || !num) return;
       let arr = [];
       for (let i = 0; i < num; i++) {
           arr = arr.concat(content);
@@ -255,6 +265,7 @@ class glts {
   }
 
   loadImageAsync(src: string) {
+      if(!src) return;
       return new Promise((resolve, reject) => {
           const img = new Image();
           img.src = src;
