@@ -3,11 +3,26 @@ class glts {
   private canvas: HTMLCanvasElement;
   private gl: WebGLRenderingContext;
 
+  private defaultOption: Object = {
+      fullscreen: <boolean> true,
+      autoresize: <boolean> true,
+      depthtest : <boolean> true,
+  };
+
   constructor() { }
 
-  init(canvasId: string) {
+  init(canvasId: string, options?: Object) {
+      if(!canvasId) return;
       this.canvas = <HTMLCanvasElement>document.getElementById(canvasId);
+      if(this.canvas === null) {
+          console.error("Failed to get Canvas Element");
+          return;
+      }
       this.gl = <WebGLRenderingContext>this.canvas.getContext("webgl");
+      if(this.gl === null){
+          console.error("Failed to get WebGL Context");
+          return;
+      }
 
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
