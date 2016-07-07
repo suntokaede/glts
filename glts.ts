@@ -7,6 +7,7 @@ class glts {
       fullscreen: <boolean> true,
       autoresize: <boolean> true,
       depthtest : <boolean> true,
+      alphablending: <boolean> true,
   };
 
   constructor() { }
@@ -61,7 +62,7 @@ class glts {
 
   getPointSize(n) {
       if(!n) return;
-      let arr = [];
+      const arr = [];
       for (let i = 0; i < n; i++) {
           arr.push(Math.random() * 5 + 5);
       }
@@ -70,7 +71,7 @@ class glts {
 
   getVelocity(n) {
       if(!n) return;
-      let l = n * 2;
+      const l = n * 2;
       let arr = new Float32Array(l);
       for (let i = 0; i < l; i++) {
           if (i % 2 === 0) {
@@ -87,7 +88,7 @@ class glts {
 
   createProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader) {
       if(!vertexShader || !fragmentShader) return;
-      let program = this.gl.createProgram();
+      const program = this.gl.createProgram();
       this.gl.attachShader(program, vertexShader);
       this.gl.attachShader(program, fragmentShader);
       this.gl.linkProgram(program);
