@@ -3,16 +3,9 @@ class glts {
   private canvas: HTMLCanvasElement;
   private gl: WebGLRenderingContext;
 
-  private defaultOption: Object = {
-      fullscreen: <boolean> true,
-      autoresize: <boolean> true,
-      depthtest : <boolean> true,
-      alphablending: <boolean> true,
-  };
-
   constructor() { }
 
-  init(canvasId: string, options?: Object) {
+  init(canvasId: string) {
       if(!canvasId) return;
       this.canvas = <HTMLCanvasElement>document.getElementById(canvasId);
       if(this.canvas === null) {
@@ -225,11 +218,11 @@ class glts {
       }
   }
 
-  createTexture(img: any) {
+  createTexture(img: HTMLCanvasElement | HTMLImageElement) {
       if (!img) return;
       const tex = this.gl.createTexture();
       this.gl.bindTexture(this.gl.TEXTURE_2D, tex);
-      this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, img);
+      this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, <HTMLImageElement> img);
       this.gl.generateMipmap(this.gl.TEXTURE_2D);
       this.gl.bindTexture(this.gl.TEXTURE_2D, null);
       return tex;
