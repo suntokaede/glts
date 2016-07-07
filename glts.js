@@ -3,8 +3,18 @@ var glts = (function () {
     }
     glts.prototype.init = function (canvasId) {
         var _this = this;
+        if (!canvasId)
+            return;
         this.canvas = document.getElementById(canvasId);
+        if (this.canvas === null) {
+            console.error("Failed to get Canvas Element");
+            return;
+        }
         this.gl = this.canvas.getContext("webgl");
+        if (this.gl === null) {
+            console.error("Failed to get WebGL Context");
+            return;
+        }
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
